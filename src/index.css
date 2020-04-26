@@ -1,0 +1,60 @@
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.countdown-container > div {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.letter {
+  display: inline-block;
+  color: green;
+  text-transform: uppercase;
+  height: 80px;
+  width: 50px;
+  line-height: 60px;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 3rem;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.letter.error {
+  color: red;
+}
+
+.letter.success {
+  color: green;
+}
+
+.letter.selected {
+  opacity: 30%;
+}
