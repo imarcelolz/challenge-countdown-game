@@ -1,7 +1,9 @@
+import React from 'react';
 import { AppProps } from './App.types';
+import { Countdown } from './Components/Countdown';
 
-function App(_props: AppProps) {
-
-}
+const App = (_props: AppProps) => (
+  <Countdown />
+);
 
 export default App;
