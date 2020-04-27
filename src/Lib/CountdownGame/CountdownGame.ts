@@ -1,5 +1,5 @@
 import assetsWords from '@/Assets/Words';
-import { Answer, ClockTickCallback, CountdownState, GameOverCallback, MatchState } from './CountdownGame.types';
+import { Answer, ClockTickCallback, CountdownGameState, GameOverCallback, MatchState } from './CountdownGame.types';
 import { randomChars } from './randomChars';
 import { shuffle } from './shuffle';
 
@@ -7,7 +7,7 @@ export class CountdownGame {
   private readonly interval = 60 * 1000;
   private timeoutTick = null;
   private clockTick = null;
-  private state: CountdownState;
+  private state: CountdownGameState;
 
   constructor(
     private onGameOver: GameOverCallback,
@@ -15,7 +15,7 @@ export class CountdownGame {
     private words: string[] = assetsWords
   ) {}
 
-  start = (): Pick<CountdownState, 'randomWord' | 'wordLength'> => {
+  start = (): Pick<CountdownGameState, 'randomWord' | 'wordLength'> => {
     this.stop();
     this.state = this.initialState();
 
@@ -32,7 +32,8 @@ export class CountdownGame {
     clearInterval(this.clockTick);
   }
 
-  addLetter = (position: number, letter: string): Array<Answer> => {
+  addLetter = (answer: Answer): Array<Answer> => {
+    const { letter, position } = answer;
     const { answers, word } = this.state;
 
     answers.push({
@@ -79,7 +80,7 @@ export class CountdownGame {
     return response === word
   }
 
-  private initialState = (): CountdownState => {
+  private initialState = (): CountdownGameState => {
     const word = this.pickWord();
     const missingChars = randomChars(9 - word.length);
     const randomWord = shuffle(word + missingChars);

@@ -4,12 +4,12 @@ export interface CountdownWord {
 }
 
 export interface Answer {
-  correct: boolean;
+  correct?: boolean;
   letter: string;
   position: number;
 }
 
-export interface CountdownState {
+export interface CountdownGameState {
   answers: Array<Answer>;
   randomWord: string;
   word: string;
@@ -18,5 +18,5 @@ export interface CountdownState {
 }
 
 export type MatchState = 'success' | 'too-many-tries' | 'timeout' | 'stoped';
-export type GameOverCallback = (result: CountdownState) => void;
+export type GameOverCallback = (result: CountdownGameState) => void;
 export type ClockTickCallback = () => void;

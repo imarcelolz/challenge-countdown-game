@@ -1,6 +1,6 @@
 import assetsWords from '@/Assets/Words';
 import { CountdownGame } from './CountdownGame';
-import { CountdownState } from './CountdownGame.types';
+import { CountdownGameState } from './CountdownGame.types';
 
 let target: CountdownGame;
 let onTimeout;
@@ -23,7 +23,7 @@ describe('#constructor', () => {
   });
 })
 describe('#start', () => {
-  let result: Partial<CountdownState>;
+  let result: Partial<CountdownGameState>;
 
   beforeEach(build);
 
@@ -59,23 +59,23 @@ describe('#addLetter', () => {
   });
 
   it('finishes the game when you try more than tree times', () => {
-    target.addLetter(1, 'c');
-    target.addLetter(1, 'c');
-    target.addLetter(1, 'c');
+    target.addLetter({ position: 1, letter: 'c' });
+    target.addLetter({ position: 1, letter: 'c' });
+    target.addLetter({ position: 1, letter: 'c' });
 
     expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':false,'position':1,'letter':'c'},{'correct':false,'position':1,'letter':'c'},{'correct':false,'position':1,'letter':'c'}],'word':'banana','randomWord':'baannnann','state':'too-many-tries'});
   });
 
   it('finishes with success when you choose the correct word', () => {
-    words[0].split('').forEach((letter, index) => {
-      target.addLetter(index, letter);
+    words[0].split('').forEach((letter,  position) => {
+      target.addLetter({ position, letter });
     });
 
     expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':true,'position':0,'letter':'b'},{'correct':true,'position':1,'letter':'a'},{'correct':true,'position':2,'letter':'n'},{'correct':true,'position':3,'letter':'a'},{'correct':true,'position':4,'letter':'n'},{'correct':true,'position':5,'letter':'a' }],'word':'banana','randomWord':'baannnann','state':'success'});
   });
 
   it('returns the updated answers', () => {
-    const result = target.addLetter(1, 'c');
+    const result = target.addLetter({ position: 1, letter: 'c' });
 
     expect(result).toEqual([{'correct': false, 'letter': 'c', 'position': 1}]);
   });

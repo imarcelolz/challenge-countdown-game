@@ -1,2 +1,2 @@
 export { CountdownGame } from './CountdownGame';
-export type { ClockTickCallback as TickCallback, CountdownState as CountdownNice, GameOverCallback as TimeoutCallback } from './CountdownGame.types';
+export type { Answer, ClockTickCallback, CountdownGameState, GameOverCallback, MatchState } from './CountdownGame.types';
