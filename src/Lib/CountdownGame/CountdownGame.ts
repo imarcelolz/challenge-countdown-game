@@ -33,16 +33,17 @@ export class CountdownGame {
   }
 
   addLetter = (answer: Answer): Array<Answer> => {
-    const { value: letter, index: position } = answer;
+    const { index, value  } = answer;
     const { answers, word } = this.state;
+    const correct = word[index] === value;
 
-    answers.push({
-      correct: word[position] === letter,
-      index: position,
-      value: letter
-    });
+    answers.push({ index, correct, value });
 
-    if(answers.filter((answer) => !answer.correct).length >= 3) {
+    if(!correct) {
+      this.state.wrongAnswersCount += 1;
+    }
+
+    if(this.state.wrongAnswersCount >= 3) {
       this.finishError('too-many-tries');
 
       return;
@@ -85,7 +86,7 @@ export class CountdownGame {
     const missingChars = randomChars(9 - word.length);
     const randomWord = shuffle(word + missingChars);
 
-    return { answers: [], word, randomWord };
+    return { answers: [], word, randomWord, wrongAnswersCount: 0 };
   }
 
   private pickWord() {

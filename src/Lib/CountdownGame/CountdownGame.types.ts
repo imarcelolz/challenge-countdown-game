@@ -15,6 +15,7 @@ export interface CountdownGameState {
   result?: MatchResult;
   word: string;
   wordLength?: number;
+  wrongAnswersCount: number;
 }
 
 export type MatchResult = 'success' | 'too-many-tries' | 'timeout' | 'stoped';

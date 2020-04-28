@@ -63,7 +63,7 @@ describe('#addLetter', () => {
     target.addLetter({ index: 1, value: 'c' });
     target.addLetter({ index: 1, value: 'c' });
 
-    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'}],'word':'banana','randomWord':'baannnann','result':'too-many-tries'});
+    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'}],'word':'banana','wrongAnswersCount': 3, 'randomWord':'baannnann','result':'too-many-tries'});
   });
 
   it('finishes with success when you choose the correct word', () => {
@@ -71,7 +71,7 @@ describe('#addLetter', () => {
       target.addLetter({ index, value });
     });
 
-    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':true,'index':0,'value':'b'},{'correct':true,'index':1,'value':'a'},{'correct':true,'index':2,'value':'n'},{'correct':true,'index':3,'value':'a'},{'correct':true,'index':4,'value':'n'},{'correct':true,'index':5,'value':'a' }],'word':'banana','randomWord':'baannnann','result':'success'});
+    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':true,'index':0,'value':'b'},{'correct':true,'index':1,'value':'a'},{'correct':true,'index':2,'value':'n'},{'correct':true,'index':3,'value':'a'},{'correct':true,'index':4,'value':'n'},{'correct':true,'index':5,'value':'a' }], 'word' :'banana', 'wrongAnswersCount': 0, 'randomWord':'baannnann','result':'success'});
   });
 
   it('returns the updated answers', () => {
