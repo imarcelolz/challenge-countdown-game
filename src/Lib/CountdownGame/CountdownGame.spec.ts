@@ -59,24 +59,24 @@ describe('#addLetter', () => {
   });
 
   it('finishes the game when you try more than tree times', () => {
-    target.addLetter({ position: 1, letter: 'c' });
-    target.addLetter({ position: 1, letter: 'c' });
-    target.addLetter({ position: 1, letter: 'c' });
+    target.addLetter({ index: 1, value: 'c' });
+    target.addLetter({ index: 1, value: 'c' });
+    target.addLetter({ index: 1, value: 'c' });
 
-    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':false,'position':1,'letter':'c'},{'correct':false,'position':1,'letter':'c'},{'correct':false,'position':1,'letter':'c'}],'word':'banana','randomWord':'baannnann','state':'too-many-tries'});
+    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'},{'correct':false,'index':1,'value':'c'}],'word':'banana','randomWord':'baannnann','result':'too-many-tries'});
   });
 
   it('finishes with success when you choose the correct word', () => {
-    words[0].split('').forEach((letter,  position) => {
-      target.addLetter({ position, letter });
+    words[0].split('').forEach((value,  index) => {
+      target.addLetter({ index, value });
     });
 
-    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':true,'position':0,'letter':'b'},{'correct':true,'position':1,'letter':'a'},{'correct':true,'position':2,'letter':'n'},{'correct':true,'position':3,'letter':'a'},{'correct':true,'position':4,'letter':'n'},{'correct':true,'position':5,'letter':'a' }],'word':'banana','randomWord':'baannnann','state':'success'});
+    expect(onTimeout).toHaveBeenCalledWith({'answers':[{'correct':true,'index':0,'value':'b'},{'correct':true,'index':1,'value':'a'},{'correct':true,'index':2,'value':'n'},{'correct':true,'index':3,'value':'a'},{'correct':true,'index':4,'value':'n'},{'correct':true,'index':5,'value':'a' }],'word':'banana','randomWord':'baannnann','result':'success'});
   });
 
   it('returns the updated answers', () => {
-    const result = target.addLetter({ position: 1, letter: 'c' });
+    const result = target.addLetter({ index: 1, value: 'c' });
 
-    expect(result).toEqual([{'correct': false, 'letter': 'c', 'position': 1}]);
+    expect(result).toEqual([{'correct': false, 'value': 'c', 'index': 1}]);
   });
 });

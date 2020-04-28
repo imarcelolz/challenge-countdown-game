@@ -1,5 +1,5 @@
 import assetsWords from '@/Assets/Words';
-import { Answer, ClockTickCallback, CountdownGameState, GameOverCallback, MatchState } from './CountdownGame.types';
+import { Answer, ClockTickCallback, CountdownGameState, GameOverCallback, MatchResult } from './CountdownGame.types';
 import { randomChars } from './randomChars';
 import { shuffle } from './shuffle';
 
@@ -33,13 +33,13 @@ export class CountdownGame {
   }
 
   addLetter = (answer: Answer): Array<Answer> => {
-    const { letter, position } = answer;
+    const { value: letter, index: position } = answer;
     const { answers, word } = this.state;
 
     answers.push({
       correct: word[position] === letter,
-      position,
-      letter
+      index: position,
+      value: letter
     });
 
     if(answers.filter((answer) => !answer.correct).length >= 3) {
@@ -55,16 +55,16 @@ export class CountdownGame {
     return answers;
   }
 
-  private finishError = (matchState: MatchState = 'timeout') => {
+  private finishError = (matchState: MatchResult = 'timeout') => {
     this.stop();
-    this.state.state = matchState;
+    this.state.result = matchState;
 
     this.onGameOver(this.state);
   }
 
   private finishSuccess = () => {
     this.stop();
-    this.state.state = 'success';
+    this.state.result = 'success';
 
     this.onGameOver(this.state);
   }
@@ -73,8 +73,8 @@ export class CountdownGame {
     const { answers, word } = this.state;
 
     const response = answers
-      .sort((a, b) => a.position - b.position)
-      .map(answer => answer.letter)
+      .sort((a, b) => a.index - b.index)
+      .map(answer => answer.value)
       .join('');
 
     return response === word
